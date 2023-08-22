@@ -10,4 +10,4 @@
 | shuabu_push  | Pushplus的推送token |  token  |
 | shuabu_ktkey  | 酷推的key |  key  |
 | 暂不支持  | 暂不支持 |  暂不支持  |
-#想要推送改一起的改下头部代码即可
+#想要把所有推送改一成一个变量的改下头部代码即可
