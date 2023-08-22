@@ -5,8 +5,8 @@
 ## 青龙变量
 | 参数 | 说明                     |  格式  |
 | ---- | -----------------------  |  -------  |
-| shuabu  | 账号\|密码 |  账号\|密码  多账号用回车隔开  |
-| shuabu_fs  | 推送的平台 |  多个平台使用&隔开 支持push,kt,stb,qm,tel  |
+| shuabu  | 账号\|密码 |  账号\|密码\|步数区间  多账号用回车隔开  |
+| shuabu_fs  | 推送的平台 |  多个平台使用&隔开 支持push,kt  |
 | shuabu_push  | Pushplus的推送token |  token  |
 | shuabu_ktkey  | 酷推的key |  key  |
 | 暂不支持  | 暂不支持 |  暂不支持  |
