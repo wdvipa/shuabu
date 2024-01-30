@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 """
+Software: Pycharm
 //支持青龙和actions定时执行
 //账号为zepp life(原小米运动)账号密码
+//更新时间：2024/1/30
+//更新内容：解决邮箱无法登录问题，自动检测账户是否邮箱
 //使用方法：创建变量 名字：shuabu 内容的写法：
 //账号, 密码, 步数区间
 //每个账号用回车键隔开
@@ -113,7 +116,11 @@ class shuabuanelQd(object):
         return app_token
 
     def login(self):
-        url1 = "https://api-user.huami.com/registrations/+86" + self.user + "/tokens"
+        if '@' in self.user:
+            self.user = self.user
+        else:
+            self.user = '+86' + self.user
+        url1 = "https://api-user.huami.com/registrations/" + self.user + "/tokens"
         headers = {
             "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
             "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2"
@@ -138,16 +145,33 @@ class shuabuanelQd(object):
         #print(code)
 
         url2 = "https://account.huami.com/v2/client/login"
-        data2 = {
-            "app_name": "com.xiaomi.hm.health",
-            "app_version": "4.6.0",
-            "code": f"{code}",
-            "country_code": "CN",
-            "device_id": "2C8B4939-0CCD-4E94-8CBA-CB8EA6E613A1",
-            "device_model": "phone",
-            "grant_type": "access_token",
-            "third_name": "huami_phone",
-        }
+        if '@' in self.user:
+            data2 = {
+                "allow_registration=": "false",
+                "app_name": "com.xiaomi.hm.health",
+                "app_version": "6.5.5",
+                "code": f"{code}",
+                "country_code": "CN",
+                "device_id": "2C8B4939-0CCD-4E94-8CBA-CB8EA6E613A1",
+                "device_model": "phone",
+                "dn": "api-user.huami.com%2Capi-mifit.huami.com%2Capp-analytics.huami.com",
+                "grant_type": "access_token",
+                "lang": "zh_CN",
+                "os_version": "1.5.0",
+                "source": "com.xiaomi.hm.health",
+                "third_name": "email",
+            }
+        else:
+            data2 = {
+                "app_name": "com.xiaomi.hm.health",
+                "app_version": "6.5.5",
+                "code": f"{code}",
+                "country_code": "CN",
+                "device_id": "2C8B4939-0CCD-4E94-8CBA-CB8EA6E613A1",
+                "device_model": "phone",
+                "grant_type": "access_token",
+                "third_name": "huami_phone",
+            }
         r2 = requests.post(url2, data=data2, headers=headers).json()
         login_token = r2["token_info"]["login_token"]
         print("login_token获取成功")
